@@ -1,25 +1,40 @@
-import logo from './logo.svg';
+import React, { useState } from "react";
+import StudentsDb from "./StudentsDb";
+import FontSizeSelector from "./components/FontSizeSelector";
+import Table from "./components/Table";
+import Profile from "./components/Profile";
+import './compo.css';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [students] = useState(StudentsDb);
+  const [selectedStudent, setSelectedStudent] = useState(students[0]);
+  const [fontSize, setFontSize] = useState("16px");
+
+  const selectStudent = (index) => {
+    setSelectedStudent(students[index]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    
+      <h2 className="topic">Students Information Portal</h2>
+      <hr />
+      <FontSizeSelector fontSize={fontSize} setFontSize={setFontSize} />
+      <hr/>
+      <div className="outerDiv" style={{ fontSize }}>
+       
+        <div className="leftDiv">
+          
+          <br />
+          <Table students={students} selectStudent={selectStudent} />
+        </div>
+        <div className="rightDiv">
+          <Profile student={selectedStudent} />
+        </div>
+      </div>
+    </>
   );
-}
+};
 
 export default App;
